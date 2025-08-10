@@ -1,28 +1,32 @@
-name: Run Investment Alert SMS Bot
+name: Run AI Advanced Investment Alert SMS Bot
 
 on:
   schedule:
     - cron: '0 * * * *'  # כל שעה בדקה 0
-  workflow_dispatch:      # מאפשר הפעלה ידנית
+  workflow_dispatch:
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'
-      
+
       - name: Install dependencies
-        run: pip install yfinance twilio beautifulsoup4 feedparser requests
-      
-      - name: Run investment alert script
+        run: pip install yfinance twilio beautifulsoup4 feedparser requests pandas numpy openai praw tweepy
+
+      - name: Run AI advanced investment alert script
         env:
           TWILIO_SID: ${{ secrets.TWILIO_SID }}
           TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
           TWILIO_PHONE: ${{ secrets.TWILIO_PHONE }}
           TARGET_PHONE: ${{ secrets.TARGET_PHONE }}
-        run: python investment_alert_sms.py
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
+        run: python investment_alert_ai_sms.py
