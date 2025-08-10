@@ -1,9 +1,9 @@
 name: Run Investment Alert SMS Bot
 
 on:
-  workflow_dispatch:    # מאפשר הפעלה ידנית
   schedule:
-    - cron: '0 * * * *'  # מריץ כל שעה בדקה 0
+    - cron: '0 * * * *'  # כל שעה בדקה 0
+  workflow_dispatch:      # מאפשר הפעלה ידנית
 
 jobs:
   run-bot:
@@ -17,9 +17,9 @@ jobs:
           python-version: '3.x'
       
       - name: Install dependencies
-        run: pip install yfinance requests beautifulsoup4 feedparser twilio
+        run: pip install yfinance twilio beautifulsoup4 feedparser requests
       
-      - name: Run investment_alert_sms.py
+      - name: Run investment alert script
         env:
           TWILIO_SID: ${{ secrets.TWILIO_SID }}
           TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
